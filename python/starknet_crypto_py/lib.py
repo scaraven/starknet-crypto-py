@@ -24,3 +24,13 @@ def sign(private_key: int, msg_hash: int, seed: int) -> tuple[int, int]:
 
 def verify(public_key: int, msg_hash: int, r: int, s: int) -> bool:
     return rs_verify(hex(public_key), hex(msg_hash), hex(r), hex(s))
+
+def poseidon_hash(x: int, y: int) -> int:
+    return int(rs_poseidon_hash(hex(x), hex(y)))
+
+def poseidon_hash_single(x: int) -> int:
+    return int(rs_poseidon_hash_single(hex(x)))
+
+def poseidon_hash_many(inputs: list[int]) -> int:
+    hex_inputs = [hex(i) for i in inputs]
+    return int(rs_poseidon_hash_many(hex_inputs))

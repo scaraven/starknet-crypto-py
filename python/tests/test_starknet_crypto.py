@@ -1,5 +1,5 @@
 import pytest
-from starknet_crypto_py import get_public_key, pedersen_hash, sign, verify
+from starknet_crypto_py import get_public_key, pedersen_hash, sign, verify, poseidon_hash_many
 
 TEST_PRIVATE_KEY = (
     2708384690123958484688745363115889726043588718997906908187752842753359350371
@@ -57,3 +57,6 @@ def test_sign_and_verify() -> None:
     (r, s) = sign(private_key=TEST_PRIVATE_KEY, msg_hash=4660, seed=123)
     is_valid = verify(public_key=TEST_PUBLIC_KEY, msg_hash=4660, r=r, s=s)
     assert is_valid
+
+def test_poseidon_hash_many() -> None:
+    assert poseidon_hash_many([1, 2, 3, 4, 5, 6, 7, 8]) == 142523731258509939608696022271238521916410456401611624853849835202137558864

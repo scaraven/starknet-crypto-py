@@ -27,13 +27,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.14"
 ziglang = "^0.15.1"
-
-[tool.poetry.group.dev.dependencies]
 pytest = "^9.0.1"
 maturin = "^1.10.2"
 mypy = "^1.19.0"
 ruff = "^0.14.7"
-ziglang = "^0.15.1"
 tox = "^4.32.0"
 
 [tool.mypy]

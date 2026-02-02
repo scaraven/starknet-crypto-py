@@ -1,6 +1,6 @@
 use pyo3::prelude::*;
 use starknet_crypto::{
-    FieldElement,
+    Felt as FieldElement,
     pedersen_hash as pedersen_hash_rs,
     poseidon_hash as poseidon_hash_rs,
     poseidon_hash_single as poseidon_hash_single_rs,
@@ -10,7 +10,7 @@ use starknet_crypto::{
 };
 
 fn _fe_from_str(s: &str) -> FieldElement {
-    FieldElement::from_hex_be(s).unwrap()
+    FieldElement::from_hex(s).unwrap()
 }
 
 #[pyfunction]
