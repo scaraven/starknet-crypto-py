@@ -2,6 +2,9 @@ use pyo3::prelude::*;
 use starknet_crypto::{
     FieldElement,
     pedersen_hash as pedersen_hash_rs,
+    poseidon_hash as poseidon_hash_rs,
+    poseidon_hash_single as poseidon_hash_single_rs,
+    poseidon_hash_many as poseidon_hash_many_rs,
     sign as sign_rs,
     rfc6979_generate_k as rfc6979_generate_k_rs,
 };
@@ -47,6 +50,28 @@ fn rs_verify(public_key: &str, msg_hash: &str, r: &str, s: &str) -> PyResult<boo
     Ok(result)
 }
 
+#[pyfunction]
+fn rs_poseidon_hash(x: &str, y: &str) -> PyResult<String> {
+    let x: FieldElement = _fe_from_str(x);
+    let y: FieldElement = _fe_from_str(y);
+    let hash: String = poseidon_hash_rs(x, y).to_string();
+    Ok(hash)
+}
+
+#[pyfunction]
+fn rs_poseidon_hash_single(x: &str) -> PyResult<String> {
+    let x: FieldElement = _fe_from_str(x);
+    let hash: String = poseidon_hash_single_rs(x).to_string();
+    Ok(hash)
+}
+
+#[pyfunction]
+fn rs_poseidon_hash_many(inputs: Vec<String>) -> PyResult<String> {
+    let fes: Vec<FieldElement> = inputs.iter().map(|s| _fe_from_str(s)).collect();
+    let hash: String = poseidon_hash_many_rs(&fes).to_string();
+    Ok(hash)
+}
+
 // A Python module implemented in Rust
 #[pymodule]
 fn starknet_crypto_py(_py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -54,5 +79,8 @@ fn starknet_crypto_py(_py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> 
     m.add_function(wrap_pyfunction!(rs_sign, m)?)?;
     m.add_function(wrap_pyfunction!(rs_verify, m)?)?;
     m.add_function(wrap_pyfunction!(rs_get_public_key, m)?)?;
+    m.add_function(wrap_pyfunction!(rs_poseidon_hash, m)?)?;
+    m.add_function(wrap_pyfunction!(rs_poseidon_hash_single, m)?)?;
+    m.add_function(wrap_pyfunction!(rs_poseidon_hash_many, m)?)?;
     Ok(())
 }

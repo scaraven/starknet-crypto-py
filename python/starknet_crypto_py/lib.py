@@ -1,6 +1,9 @@
 from starknet_crypto_py.starknet_crypto_py import (
     rs_get_public_key,
     rs_pedersen_hash,
+    rs_poseidon_hash,
+    rs_poseidon_hash_single,
+    rs_poseidon_hash_many,
     rs_sign,
     rs_verify,
 )
