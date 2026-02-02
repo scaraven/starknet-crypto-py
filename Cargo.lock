@@ -294,6 +294,7 @@ dependencies = [
  "indoc",
  "libc",
  "memoffset",
+ "num-bigint",
  "once_cell",
  "portable-atomic",
  "pyo3-build-config 0.24.1",
@@ -524,6 +525,7 @@ name = "starknet-crypto-py"
 version = "0.3.0"
 dependencies = [
  "cc",
+ "num-bigint",
  "pyo3",
  "pyo3-build-config 0.21.2",
  "starknet-crypto",
